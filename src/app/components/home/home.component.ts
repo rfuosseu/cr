@@ -44,8 +44,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   onUpload() {
-    console.log(this.form.value);
-
     const stream = new FileReader();
     if(this.uploadedFile) {
       stream.readAsText(this.uploadedFile, 'UTF8');

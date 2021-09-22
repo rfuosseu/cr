@@ -10,9 +10,9 @@ import Sunburst from 'sunburst-chart';
 export class SunburstComponent implements OnInit {
   @Input() data: INode = {};
   @Input() colorLabel: string = 'color';
+  @Input() size: number = 500;
 
   hostElement: HTMLElement;
-  size: number = 300;
 
 
   constructor(private elRef: ElementRef) {

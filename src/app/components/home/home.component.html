@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Bienvenue John Doe!</h1>
+  <h1 class="mat-h1">Welcome John Doe!</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
@@ -16,8 +16,30 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>
-            <app-sunburst [data]="data"></app-sunburst>
+          <div class="row">
+            <form [formGroup]="form" class="col" (ngSubmit)="onUpload()">
+              <h3>Upload your data</h3>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="type" value="bigQuery">
+                <label class="form-check-label">
+                  Big Query CSV file
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="type" value="json">
+                <label class="form-check-label">
+                  Sunburst JSON file
+                </label>
+              </div>
+              <div class="form-group">
+                <label>File input</label>
+                <input type="file" class="form-control-file" formControlName="file" (change)="upload($event)">
+              </div>
+              <button type="submit" class="btn btn-primary"  [disabled]="form.invalid">Submit</button>
+            </form>
+            <div class="col">
+              <app-sunburst *ngIf="data" [data]="data" [colorLabel]="colorLabel"></app-sunburst>
+            </div>
           </div>
         </mat-card-content>
       </mat-card>

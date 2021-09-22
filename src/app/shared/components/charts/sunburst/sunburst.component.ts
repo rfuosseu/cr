@@ -9,6 +9,7 @@ import Sunburst from 'sunburst-chart';
 })
 export class SunburstComponent implements OnInit {
   @Input() data: INode = {};
+  @Input() colorLabel: string = 'color';
 
   hostElement: HTMLElement;
   size: number = 300;
@@ -23,7 +24,7 @@ export class SunburstComponent implements OnInit {
       .data(this.data)
       .width(this.size)
       .height(this.size)
-      .color('color')
+      .color(this.colorLabel)
       .radiusScaleExponent(1)
       (this.hostElement);
   }

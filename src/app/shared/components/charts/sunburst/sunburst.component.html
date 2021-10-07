@@ -1,1 +1,9 @@
-
+<section class="row">
+  <div #sunburst class="col-md-8"></div>
+  <div class="col-md-4">
+    <h2> Journey details</h2>
+    <ul *ngIf="currentNode">
+      <li>{{ getPercentage(currentNode) }}% reach this step on their visit.</li>
+    </ul>
+  </div>
+</section>

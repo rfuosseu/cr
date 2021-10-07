@@ -22,8 +22,9 @@ export class SunburstFomaterService {
       _.set(acc, entries[0].replace(/-/g, '.'), parseFloat(entries[1]));
       return acc;
     }, {});
+    const selectedColors: any = {};
 
-    return this._formatJsonBQ(res, Object.keys(colorName));
+    return this._formatJsonBQ(res, Object.keys(colorName), selectedColors);
   }
 
   /**
@@ -32,21 +33,25 @@ export class SunburstFomaterService {
    * @param colors
    * @returns
    */
-  private _formatJsonBQ(data: any, colors: string[]) {
+  private _formatJsonBQ(data: any, colors: string[], selectedColors: any) {
     let res: any[] = [];
     colors = _.shuffle(colors);
 
     _.forIn(data, (value: any, name: string) => {
+      if (!selectedColors[name]) {
+        selectedColors[name] = colors.shift();
+      }
+
       if (typeof value === 'number') {
-        res.push({ name, value, color: colors.shift() });
+        res.push({ name, value, color: selectedColors[name] });
       } else {
         res.push({
           name,
-          color: colors.shift(),
-          children: this._formatJsonBQ(value, colors)
+          color: selectedColors[name],
+          children: this._formatJsonBQ(value, colors, selectedColors)
         });
       }
-    })
+    });
 
     return res;
   }
